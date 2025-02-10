@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const Header = () => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   return (
     <header>
       <h2>Cookbook</h2>
