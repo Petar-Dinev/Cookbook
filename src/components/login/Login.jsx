@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const Login = () => {
-  // const {} = useForm({
-  //   email: '',
-  //   password: ''
-  // })
+  const { onLogin } = useAuthContext();
+  const { values, onChangeHandler, onSubmitHandler } = useForm(
+    {
+      email: "",
+      password: "",
+    },
+    onLogin
+  );
 
   return (
     <section>
@@ -13,12 +18,26 @@ export const Login = () => {
         <h2>Login Form</h2>
       </header>
 
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <label htmlFor="email">
-          Email: <input type="email" name="email" id="email" />
+          Email:{" "}
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={values.email}
+            onChange={onChangeHandler}
+          />
         </label>
         <label htmlFor="password">
-          Password: <input type="password" name="password" id="password" />
+          Password:{" "}
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={values.password}
+            onChange={onChangeHandler}
+          />
         </label>
         <button>Log in</button>
       </form>
