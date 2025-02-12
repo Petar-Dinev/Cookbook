@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../contexts/AuthContext";
 
-export const Login = () => {
+export default function Login() {
   const { onLogin } = useAuthContext();
   const { values, onChangeHandler, onSubmitHandler } = useForm(
     {

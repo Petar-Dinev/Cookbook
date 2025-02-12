@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export default function AuthProvider({ children }) {
   const [authData, setAuthData] = useState(null);
   const navigate = useNavigate();
 
@@ -12,10 +12,15 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
+  const onLogout = () => {
+    setAuthData(null)
+  }
+
   const contextValues = {
     authData,
     isAuthenticated: !!authData?.email,
-    onLogin
+    onLogin,
+    onLogout
   };
 
   return (
