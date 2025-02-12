@@ -14,7 +14,8 @@ export const AuthProvider = ({ children }) => {
 
   const contextValues = {
     authData,
-    onLogin,
+    isAuthenticated: !!authData?.email,
+    onLogin
   };
 
   return (

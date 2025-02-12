@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 export const Header = () => {
-  const [user, setUser] = useState(false);
+  const { isAuthenticated } = useAuthContext();
   return (
     <header>
       <h2>Cookbook</h2>
@@ -14,7 +14,7 @@ export const Header = () => {
           <li>
             <Link to="/catalog">Catalog</Link>
           </li>
-          {user ? (
+          {isAuthenticated ? (
             <>
               <li>
                 <Link to="/profile">Profile</Link>
