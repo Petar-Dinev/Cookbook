@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
+import AuthProvider from "./contexts/authContext/AuthProvider";
 import Home from "./components/home/Home";
 import Header from "./components/header/Header";
 import Login from "./components/login/Login";
-import AuthProvider from "./contexts/AuthContext";
 import Logout from "./components/logout/Logout";
 
 function App() {
