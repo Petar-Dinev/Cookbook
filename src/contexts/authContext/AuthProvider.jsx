@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {AuthContext} from './AuthContext'
+import { AuthContext } from './AuthContext'
 
 export default function AuthProvider({ children }) {
   const [authData, setAuthData] = useState(null);
@@ -8,6 +8,11 @@ export default function AuthProvider({ children }) {
 
   const onLogin = (values) => {
     setAuthData(values);
+    navigate("/");
+  };
+
+  const onRegister = ({ email, username }) => {
+    setAuthData({ email, username });
     navigate("/");
   };
 
@@ -19,6 +24,7 @@ export default function AuthProvider({ children }) {
     authData,
     isAuthenticated: !!authData?.email,
     onLogin,
+    onRegister,
     onLogout
   };
 
