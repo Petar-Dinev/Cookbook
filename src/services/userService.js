@@ -7,7 +7,7 @@ async function register(email, username, password) {
 }
 
 async function login(email, password) {
-    return await post(END_POINT + '/login', {email, password})
+    return await post(END_POINT + '/login', {email, password});
 }
 
 async function logout() {

@@ -1,14 +1,20 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from './AuthContext'
+import { login, logout } from "../../services/userService";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function AuthProvider({ children }) {
-  const [authData, setAuthData] = useState(null);
+  const [authData, setAuthData] = useLocalStorage('auth', {});
   const navigate = useNavigate();
 
-  const onLogin = (values) => {
-    setAuthData(values);
-    navigate("/");
+  const onLogin = async ({ email, password }) => {
+    try {
+      const result = await login(email, password);
+      setAuthData(result);
+      navigate("/");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   const onRegister = ({ email, username }) => {
@@ -16,8 +22,9 @@ export default function AuthProvider({ children }) {
     navigate("/");
   };
 
-  const onLogout = () => {
-    setAuthData(null)
+  const onLogout = async () => {
+    await logout();
+    setAuthData({});
   }
 
   const contextValues = {
