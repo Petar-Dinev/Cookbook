@@ -1,3 +1,5 @@
+import { getData } from "../utils/workWithLocalStorage";
+
 const BASE_URL = 'http://localhost:3000';
 
 async function requester(method, url, data) {
@@ -11,6 +13,11 @@ async function requester(method, url, data) {
         options.body = JSON.stringify(data);
     }
 
+    const authData = getData('auth');
+    if (authData && authData.accessToken) {
+        options.headers['P-Authorization'] = authData.accessToken;
+    }
+
     try {
         const response = await fetch(BASE_URL + url, options);
 
@@ -21,13 +28,13 @@ async function requester(method, url, data) {
         const result = await response.json();
 
         if (!response.ok) {
-            throw new Error(result.message);
+            throw result;
         }
 
         return result;
         
     } catch (err) {
-        throw err.message;
+        throw new Error(err.message);
     }
 
 }
