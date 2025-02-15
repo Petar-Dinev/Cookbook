@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from './AuthContext'
-import { login, logout } from "../../services/userService";
+import { login, logout, register } from "../../services/userService";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 export default function AuthProvider({ children }) {
@@ -9,6 +9,10 @@ export default function AuthProvider({ children }) {
 
   const onLogin = async ({ email, password }) => {
     try {
+      if (!email || !password) {
+        throw new Error('All fields are required!');
+      }
+
       const result = await login(email, password);
       setAuthData(result);
       navigate("/");
@@ -17,9 +21,22 @@ export default function AuthProvider({ children }) {
     }
   };
 
-  const onRegister = ({ email, username }) => {
-    setAuthData({ email, username });
-    navigate("/");
+  const onRegister = async ({ email, username, password, rePass }) => {
+    try {
+      if (!email || !username || !password || !rePass) {
+        throw new Error('All fields are required!');
+      }
+
+      if (password !== rePass) {
+        throw new Error('Passwords do not match!');
+      }
+
+      const result = await register(email, username, password);
+      setAuthData(result);
+      navigate("/");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   const onLogout = async () => {

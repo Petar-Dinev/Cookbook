@@ -8,6 +8,7 @@ export default function Register() {
         email: '',
         username: '',
         password: '',
+        rePass: ''
     }, onRegister);
 
     return (
